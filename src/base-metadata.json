@@ -1,0 +1,20 @@
+{
+    "name": "Brutus Lottery 🎟️",
+    "description": "Bi-weekly draws offer a chance to win, with prizes totaling 80% of proceeds from staking, resource rentals, and contributions from Brutus energy providers. We extend our heartfelt thanks for your NFT purchase, which not only enhances your chances of winning but also strengthens our community. Purchase 100 TRX tickets. Rest assured, the team commits to a full ticket refund in case of interruptions. Boost your odds by holding NFTs, especially multiple ones. Check https://brutus.finance for the latest lottery results and contest conditions. See if you're the lucky winner and get details on engaging in this exhilarating bi-weekly event! Thank you for your continued support!",
+    "website": "https://brutus.finance",
+    "attributes": [
+      {
+        "trait_type": "Lucky number",
+        "display_type": "number",
+        "value": 2437
+      },
+      {
+        "trait_type": "Type",
+        "value": "Lottery Ticket"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "NiresVicente"
+      }
+    ]
+  }
