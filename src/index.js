@@ -28,7 +28,7 @@ app.get(RUTA, async (req, res) => {
     res.send({ "ok": true });
 });
 
-app.use(RUTA + '/static', express.static(path.join(__dirname, '..', 'public')));
+app.use(RUTA + 'static', express.static(path.join(__dirname, '..', 'public')));
 
 app.get(RUTA + "lottery", async (req, res) => {
 
