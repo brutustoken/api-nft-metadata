@@ -1,0 +1,17 @@
+services:
+  api-nft-metadata:
+    build: .
+    container_name: nft-metadata
+    restart: always
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.brutus-precio-api.rule=Host(`nft-metadata.brutusservices.com`)"
+      - "traefik.http.routers.brutus-precio-api.entrypoints=websecure"
+      - "traefik.http.routers.brutus-precio-api.tls.certresolver=myresolver"
+      - "traefik.http.services.brutus-precio-api.loadbalancer.server.port=8000"
+
+networks:
+  web:
+   external: true

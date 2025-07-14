@@ -1,49 +1,50 @@
 const data = require('./base-metadata.json');
 
 const express = require('express');
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const app = express();
+const path = require('path');
+
 const BigNumber = require('bignumber.js');
-var cors = require('cors');
+let cors = require('cors');
 
 require('dotenv').config();
 
-const app = express();
 app.use(cors());
 
-const port = process.env.PORT || 3012;
+const port = process.env.PORT || 8000;
 
-const URL = "/v1/"
+const RUTA = "/v1/"
 
-app.get("",async(req,res) => {
 
-    res.send({"ok":true});
+app.get("*", async (req, res) => {
+    res.send({ "ok": true });
 });
 
-app.get(URL,async(req,res) => {
-
-    res.send({"ok":true});
+app.get('health', (req, res) => {
+    res.send("OK");
 });
 
-app.get(URL+"lottery",async(req,res) => {
+app.get(RUTA, async (req, res) => {
+    res.send({ "ok": true });
+});
 
-    if(req.query.ticket){
-        var resutado = data;
-        resutado.image = "https://nft.brutus.finance/lottery/img/"+parseInt(req.query.ticket)+".gif"
-        resutado.number = parseInt(req.query.ticket)
-        resutado.attributes[0].value = parseInt(req.query.ticket)
+app.use(RUTA + '/static', express.static(path.join(__dirname, '..', 'public')));
 
-        
-    }else{
+app.get(RUTA + "lottery", async (req, res) => {
 
-        var resutado = data;
-        resutado.image = "https://nft.brutus.finance/lottery/index.jpg"
-        resutado.number = -1
+    let resutado = data;
+    let { ticket } = req.query;
+
+    if (ticket && parseInt(ticket) >= 0) {
+        resutado.image = "https://nft-metadata.brutusservices.com/v1/static/lottery/img/" + parseInt(ticket) + ".gif"
+        resutado.number = parseInt(ticket)
+        resutado.attributes[0].value = parseInt(ticket)
 
     }
 
     res.send(resutado);
 
-    
+
 });
 
-app.listen(port, ()=> console.log('Escuchando Puerto: http://localhost:' + port))
+app.listen(port, () => console.log('Escuchando Puerto: http://localhost:' + port + RUTA));

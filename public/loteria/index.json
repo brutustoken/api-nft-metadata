@@ -1,0 +1,17 @@
+{
+  "title": "Ticket",
+  "name": "Ticket de lotería",
+  "image": "https://nft.brutus.finance/loteria/lottery_blanco.gif",
+  "description": "Con este tiket participas de la loteria que tiene como premio las ganancias generadas por la participacion en BRST de todos los participantes, se realiza el sorteo cada 15 dias, puedes hacer el seguimiento en:\n https://dapp.brutus.finance/?brlt",
+  "externalLink": "https://brutus.finance",
+  "attributes": [
+    {
+      "trait_type": "Creator",
+      "value": "brutus.finance"
+    },
+    {
+      "trait_type": "tipe",
+      "value": "ticket"
+    }
+  ]
+}

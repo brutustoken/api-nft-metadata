@@ -1,0 +1,36 @@
+{
+  "title": "Brutus Lottery",
+  "name": "Brutus Lottery",
+  "image": "https://nft.brutus.finance/02-Premium/02-Premium.jpg",
+  "fileUrl": "https://nft.brutus.finance/02-Premium/02-Premium.jpg",
+  "description": "Bi-weekly draws offer a chance to win, with prizes totaling 80% of proceeds from staking, resource rentals, and contributions from Brutus energy providers. We extend our heartfelt thanks for your NFT purchase, which not only enhances your chances of winning but also strengthens our community. Purchase 100 TRX tickets. Rest assured, the team commits to a full ticket refund in case of interruptions. Boost your odds by holding NFTs, especially multiple ones. Check www.brutus.finance for the latest lottery results and contest conditions. See if you're the lucky winner and get details on engaging in this exhilarating bi-weekly event! Thank you for your continued support!",
+  "externalLink": "https//:brutus.finance",
+  "attributes": [
+    {
+      "trait_type": "Creator",
+      "value": "NiresVicente"
+    }
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Brutus Lottery"
+    },
+    "description": {
+      "type": "string",
+      "description": "Bi-weekly draws offer a chance to win, with prizes totaling 80% of proceeds from staking, resource rentals, and contributions from Brutus energy providers. We extend our heartfelt thanks for your NFT purchase, which not only enhances your chances of winning but also strengthens our community. Purchase 100 TRX tickets. Rest assured, the team commits to a full ticket refund in case of interruptions. Boost your odds by holding NFTs, especially multiple ones. Check www.brutus.finance for the latest lottery results and contest conditions. See if you're the lucky winner and get details on engaging in this exhilarating bi-weekly event! Thank you for your continued support!"
+    },
+    "image":{
+      "type": "string",
+      "description": "https://nft.brutus.finance/02-Premium/02-Premium.jpg"
+    },
+    "created_at": {
+      "type": "datetime",
+      "description": "2021-11-21T22:29:12.628Z"
+    },
+    "digital_media_file_type": {
+      "type": "string",
+      "description": "collectible"
+    }
+  }
+}

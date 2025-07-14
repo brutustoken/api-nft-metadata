@@ -1,0 +1,52 @@
+{
+  "title": "BTE",
+  "name": "Brutus Token Español",
+  "image": "https://nft-metadata.brutusservices.com/v1/static/05-Especial/05-Especial.jpg",
+  "fileUrl": "https://nft-metadata.brutusservices.com/v1/static/05-Especial/05-Especial.png",
+  "description": "Colección: Brutus primera edición,\nPosición: #5,\nTipología: Ultra Premium,\nFamilia: Brutus,\nArtista: Xiz Art,\nVMG Inicial: 12.500.000 APENFT",
+  "externalLink": "https://brutus.finance",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Ultra Premium"
+    },
+    {
+      "trait_type": "VMG",
+      "value": "12.500.000 APENFT"
+    },
+    {
+      "trait_type": "VMG Inicial",
+      "value": "12.500.000 APENFT"
+    },
+    {
+      "trait_type": "Nationality",
+      "value": "Spanish"
+    },
+    {
+      "trait_type": "Creator",
+      "value": "Xiz Art"
+    }
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Brutus Token Español"
+    },
+    "description": {
+      "type": "string",
+      "description": "Colección: Brutus primera edición,\nPosición: #5,\nTipología: Ultra Premium,\nFamilia: Brutus,\nArtista: Xiz Art,\nVMG Inicial: 12.500.000 APENFT"
+    },
+    "image":{
+      "type": "string",
+      "description": "https://nft-metadata.brutusservices.com/v1/static/05-Especial/05-Especial.jpg"
+    },
+    "created_at": {
+      "type": "datetime",
+      "description": "2021-11-21T22:29:12.628Z"
+    },
+    "digital_media_file_type": {
+      "type": "string",
+      "description": "collectible"
+    }
+  }
+}
