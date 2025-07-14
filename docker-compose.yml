@@ -7,10 +7,10 @@ services:
       - web
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.brutus-precio-api.rule=Host(`nft-metadata.brutusservices.com`)"
-      - "traefik.http.routers.brutus-precio-api.entrypoints=websecure"
-      - "traefik.http.routers.brutus-precio-api.tls.certresolver=myresolver"
-      - "traefik.http.services.brutus-precio-api.loadbalancer.server.port=8000"
+      - "traefik.http.routers.api-nft-metadata.rule=Host(`nft-metadata.brutusservices.com`)"
+      - "traefik.http.routers.api-nft-metadata.entrypoints=websecure"
+      - "traefik.http.routers.api-nft-metadata.tls.certresolver=myresolver"
+      - "traefik.http.services.api-nft-metadata.loadbalancer.server.port=8000"
 
 networks:
   web:
