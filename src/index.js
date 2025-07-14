@@ -16,7 +16,7 @@ const port = process.env.PORT || 8000;
 const RUTA = "/v1/"
 
 
-app.get("*", async (req, res) => {
+app.get("/", async (req, res) => {
     res.send({ "ok": true });
 });
 
