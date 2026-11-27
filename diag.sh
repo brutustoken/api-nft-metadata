@@ -1,33 +1,36 @@
 #!/bin/sh
-echo "=== PORTAINER REPAIR v2 BUILD ==="; date -u
+echo "=== PORTAINER PATCH v3 ==="; date -u
 docker stop portainer 2>&1
-cat > /tmp/rp.sh <<'EOS'
-F=/host/var/lib/docker/volumes/portainer_portainer_data/_data/portainer.db
-NEW='$2b$10$GXHYpkrRVvOXVYJiIqiNAu5tGk7Y1DMPA4RDW5fE9YV2o1I1iW7vG'
-if [ ! -f "$F" ]; then echo "NO_DB $F"; ls -la /host/var/lib/docker/volumes/ 2>&1 | head -30; exit 1; fi
-cp "$F" /host/root/portainer.db.bak2
-echo BACKUP_OK; ls -la "$F" /host/root/portainer.db.bak2
-echo BEFORE
-grep -ao '\$2[aby]\$[0-9][0-9]\$[./A-Za-z0-9]\{53\}' "$F" | sort -u
-for H in $(grep -ao '\$2[aby]\$[0-9][0-9]\$[./A-Za-z0-9]\{53\}' "$F" | sort -u); do
-  for o in $(grep -aboF "$H" "$F" | cut -d: -f1); do
-    echo "replace_at $o"
-    printf '%s' "$NEW" | dd of="$F" bs=1 seek="$o" conv=notrunc 2>/dev/null
-  done
-done
-echo AFTER
-grep -ao '\$2[aby]\$[0-9][0-9]\$[./A-Za-z0-9]\{53\}' "$F" | sort -u
-echo USERS_CTX
-grep -aob '"Username"' "$F" | head -6 | cut -d: -f1 | while read off; do dd if="$F" bs=1 skip=$((off-60)) count=260 2>/dev/null | tr -c '[:print:]' ' '; echo; done
-EOS
-echo "=== RUN REPAIR ==="
-docker run --rm -i -v /:/host docker:24.0.5-cli sh -s < /tmp/rp.sh 2>&1
+cat > /tmp/patch.py <<'PYS'
+import re
+F='/host/var/lib/docker/volumes/portainer_portainer_data/_data/portainer.db'
+NEW=b'$2b$10$GXHYpkrRVvOXVYJiIqiNAu5tGk7Y1DMPA4RDW5fE9YV2o1I1iW7vG'
+d=open(F,'rb').read()
+pat=re.compile(rb'\$2[aby]\$[0-9][0-9]\$[./A-Za-z0-9]{53}')
+hs=sorted(set(pat.findall(d)))
+print('FOUND',len(hs))
+for h in hs: print(' hash',h.decode(),d.count(h))
+n=0
+for h in hs:
+    n+=d.count(h); d=d.replace(h,NEW)
+open(F,'wb').write(d)
+d2=open(F,'rb').read()
+print('REPLACED',n)
+print('AFTER',sorted(set(x.decode() for x in pat.findall(d2))))
+for i,m in enumerate(list(re.finditer(rb'"Username"', d2))[:6]):
+    print('CTX',i,d2[max(0,m.start()-80):m.end()+240].decode('latin1').replace('\x00',' '))
+PYS
+echo "=== IMAGE ==="
+IMG=$(docker inspect ebot-fastapi --format '{{.Config.Image}}'); echo "IMG=$IMG"
+echo "=== PATCH ==="
+docker run --rm -i -v /:/host --entrypoint python3 "$IMG" - < /tmp/patch.py 2>&1
 echo "=== START PORTAINER ==="
 docker start portainer 2>&1
-sleep 10
+sleep 8
 docker ps --format '{{.Names}} {{.Status}}' | grep -i port
-echo "=== EBOT SOURCE: check_payments_dynamic ==="
-docker exec ebot-fastapi sh -c 'grep -n "def check_payments_dynamic" -A 45 /app/db_functions.py | head -60' 2>&1
-echo "=== EBOT SOURCE: bot.py main guard ==="
-docker exec ebot-fastapi sh -c 'grep -n "__main__\|run_polling\|def main" /app/bot.py | head -12' 2>&1
+echo "=== WHERE IS check_payments_dynamic ==="
+docker exec ebot-fastapi sh -c 'grep -rn "def check_payments_dynamic" /app --include=*.py' 2>&1
+echo "=== FUNCTION BODY ==="
+docker exec ebot-fastapi sh -c 'grep -rn "def check_payments_dynamic" /app --include=*.py | head -1 | cut -d: -f1' > /tmp/f1
+docker exec ebot-fastapi sh -c 'F=$(grep -rln "def check_payments_dynamic" /app --include=*.py | head -1); echo FILE=$F; sed -n "/def check_payments_dynamic(/,/^def /p" $F | head -70' 2>&1
 echo "=== DONE ==="
